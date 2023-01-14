@@ -1,5 +1,5 @@
 import { JobsDataType } from "@types";
-
+// updated git origin
 type SearchResult = {
 	totalHitCount: number;
 	searchResults: JobsDataType[];
