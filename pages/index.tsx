@@ -8,6 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
+  // #FF6D57
+
   return (
     <>
       <Head>
@@ -16,7 +18,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="">
+      <div className="bg-[#f6f8fc]">
         <div className="h-[78vh] bg-hero object-cover flex justify-center items-center">
           <div className="text-center">
             <p className="text-[#f0f0f0]/50 border-t border-b inline-block py-2">

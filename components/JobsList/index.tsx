@@ -140,6 +140,7 @@ const columns: ColumnsType<any> = [
       <Table 
         columns={columns} 
         dataSource={jobsList}
+        className="shadow rounded-lg"
          />
       <DetailsModal isOpen={showModal} onCancel={modalHandler} />
       {/* <div className="grid grid-cols-5">
