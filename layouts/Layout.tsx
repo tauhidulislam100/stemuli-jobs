@@ -5,10 +5,13 @@ import { MdLocationPin, MdEmail, MdSmartphone } from 'react-icons/md';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaTiktok } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 
 const { Header, Content, Footer } = MainLayout;
 
 const Layout = ({ children }:{ children:ReactNode }) => {
+
+    const currentHour = dayjs().hour();
 
     return (
         <MainLayout>
@@ -21,7 +24,7 @@ const Layout = ({ children }:{ children:ReactNode }) => {
                         <span className="text-primary/80 text-lg font-semibold">N</span>
                     </Avatar>
                     <div className="">
-                        <h2 className="my-0 text-xs">Good morning,</h2>
+                        <h2 className="my-0 text-xs">Good { currentHour < 10 ? 'morning' : currentHour < 12 ? 'noon' : currentHour < 16 ? 'evening' : 'night' },</h2>
                         <h1 className="my-0 text-lg">John Doe</h1>
                     </div>
                 </div>

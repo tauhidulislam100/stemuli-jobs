@@ -16,6 +16,7 @@ import { useFetchFilterOptionsQuery, useFetchJobsQuery } from '../../store/featu
 const JobsList:React.FC = () => {
 
   const [showModal, setShowModal] = React.useState(false);
+  const [modalData, setModalData] = React.useState<{ [key:string]: any; }>({});
   const [filterBy, setFilterBy] = React.useState({
     title: '',
     company: '',
@@ -31,11 +32,11 @@ const JobsList:React.FC = () => {
   const { data:optionsData, isLoading:optionsLoading } = useFetchFilterOptionsQuery({undefined});
 
   const jobsList = useMemo(()=> jobs?.searchResults?.map((job:any, idx:number) => ({
-          key: idx + 1, 
+          ...job,
+          key: job.id, 
           title: job.title,
           companyName: job.companyName.title,
           address: job.jobLocation.map((location:any) => `${location.city}, ${location.state}`).join(', '),
-          minExperienceRequired: job.minExperienceRequired,
           employmentType: job.employmentType.join(',')
   })) ?? [] ,[jobs]);
 
@@ -46,9 +47,11 @@ const JobsList:React.FC = () => {
   
   const modalHandler = (data?:any) => {
     if(data){
-      console.log("Modal data: => ", data);
+      setModalData(data);
+      setShowModal(true);
+    }else{
+      setShowModal(false);
     }
-    setShowModal(prev => !prev);
   };
 
 const columns: ColumnsType<any> = [
@@ -81,7 +84,6 @@ const columns: ColumnsType<any> = [
   },
   {
     title: 'Descriptoin Preview',
-    dataIndex: 'id',
     key: 'id',
     render: (data) => <Button onClick={() => modalHandler(data)} size="large" type='primary' className='w-28 font-semibold' >Preview</Button>
   },
@@ -142,7 +144,7 @@ const columns: ColumnsType<any> = [
         dataSource={jobsList}
         className="shadow rounded-lg"
          />
-      <DetailsModal isOpen={showModal} onCancel={modalHandler} />
+      { modalData && <DetailsModal isOpen={showModal} onCancel={() => setShowModal(false)} data={modalData} />}
       {/* <div className="grid grid-cols-5">
         <div className="col-span-2 space-y-4">
           {

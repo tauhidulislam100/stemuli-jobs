@@ -8,6 +8,9 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import { BsCalendar2Date } from 'react-icons/bs';
 import { SlGraduation } from 'react-icons/sl';
 import Image from 'next/image';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from 'dayjs';
+dayjs.extend(customParseFormat);
 const Modal = dynamic(() => import('antd/lib/modal/Modal'));
 
 
@@ -74,8 +77,10 @@ const mainDesign = (
     </>
 );
 
-const DetailsModal = ({ isOpen, onCancel }:{ isOpen:boolean, onCancel?: () => void }) => {
-    
+const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: () => void, data:{ [key:string]: any; } }) => {
+
+    console.log("Data from modal:", data);
+
     return (
         <Modal 
             open={isOpen}
@@ -91,22 +96,22 @@ const DetailsModal = ({ isOpen, onCancel }:{ isOpen:boolean, onCancel?: () => vo
                             <Image src={'/stemuli-black.png'} alt="Stemuli Logo" fill className='object-contain' />
                         </div>
                         <div className="text-black/80">
-                            <Title className='text-[32px] text-black/80 mb-1'>Software Engineer</Title>
-                            <h3 className="text-2xl leading-6 font-medium mb-0">Google <span className="text-xl">Technology</span></h3>
+                            <Title className='text-[32px] text-black/80 mb-1'>{ data?.title }</Title>
+                            <h3 className="text-2xl leading-6 font-medium mb-0">{ data?.companyName }</h3>
                             <div className="mt-1">
                                 <div className="flex gap-1 items-end">
                                     <MdLocationPin className='text-lg text-primary/80' />
-                                    <span className="text-xs font-medium">Mountain View, California</span>
+                                    <span className="text-xs font-medium">{ data?.address}</span>
                                 </div>
                                 <div className="mt-1 flex gap-1 items-end">
                                     <MdWork className='text-lg text-primary/80' />
-                                    <span className="text-xs font-medium">Full Time</span>
+                                    <span className="text-xs font-medium">{data?.employmentType}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="">
-                        <Text className='block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> 7/3/23</Text>
+                        <Text className='block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> {dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</Text>
                         <Button size='large' type='primary' className='font-bold text-lg w-40 h-14'>Apply Now</Button>
                     </div>
                 </div>
@@ -116,24 +121,25 @@ const DetailsModal = ({ isOpen, onCancel }:{ isOpen:boolean, onCancel?: () => vo
                             Job Description
                         </Title>
                         <Paragraph className=' text-black/80'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            { data.description }
                         </Paragraph>
                         <Title level={5} className="mt-10" >
                             Key Responsibilities
                         </Title>
                         <Paragraph className='mt-3 text-black/80'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            {data.keyResponsibilities}
                         </Paragraph>
                         <Title level={5} className="mt-10" >
                             Desired skills
                         </Title>
                         <ul className="mt-3 pl-3 list-disc text-black/80">
-                            <li className="">
-                                Intermediate in HTML
-                            </li>
-                            <li className="">
-                                Beginner in Java
-                            </li>
+                            {
+                                data?.requiredSkills?.map((skill:any, idx:number) => (
+                                    <li key={`${idx}_required_skill`} className="">
+                                        {skill.level} in {skill.title}
+                                    </li>
+                                ))
+                            }
                         </ul>
                     </div>
                     <div className="">
@@ -145,21 +151,21 @@ const DetailsModal = ({ isOpen, onCancel }:{ isOpen:boolean, onCancel?: () => vo
                                 <div className="text-primary/90"><BsCalendar2Date className='text-2xl' /></div>
                                 <div className="">
                                     <h3 className="my-0 font-semibold text-gray-500 tex-xs">Application Deadline</h3>
-                                    <span className="font-semibold text-black/80 tex-xs">7/3/23</span>
+                                    <span className="font-semibold text-black/80 tex-xs">{dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</span>
                                 </div>
                             </li>
                             <li className="flex gap-5 items-center py-3">
                                 <div className="text-primary/80"><RiExchangeDollarLine className='text-2xl' /></div>
                                 <div className="">
                                     <h3 className="my-0 font-semibold text-gray-500 tex-xs">Salary range</h3>
-                                    <span className="font-semibold text-black/80 tex-xs">$20,000-$30000<span className='text-gray-500 font-medium'>(annually)</span></span>
+                                    <span className="font-semibold text-black/80 tex-xs">${data?.salary?.minSalary}-${data?.salary?.maxSalary}<span className='text-gray-500 font-medium'>({data?.salary?.type === 'Annual' ? 'annually' : 'monthly'})</span></span>
                                 </div>
                             </li>
                             <li className="flex gap-5 items-center py-3">
                                 <div className="text-primary/80"><MdOutlineWorkOutline className='text-2xl' /></div>
                                 <div className="">
                                     <h3 className="my-0 font-semibold text-gray-500 tex-xs">Experience</h3>
-                                    <span className="font-semibold text-black/80 tex-xs">1-3 years</span>
+                                    <span className="font-semibold text-black/80 tex-xs">{data.minExperienceRequired}-{data?.maxExperienceRequired}</span>
                                 </div>
                             </li>
                             <li className="flex gap-5 items-center py-3">
@@ -173,7 +179,7 @@ const DetailsModal = ({ isOpen, onCancel }:{ isOpen:boolean, onCancel?: () => vo
                                 <div className="text-primary/80"><MdOutlineMapsHomeWork className='text-2xl' /></div>
                                 <div className="">
                                     <h3 className="my-0 font-semibold text-gray-500 tex-xs">Industry</h3>
-                                    <span className="font-semibold text-black/80 tex-xs">Information Technology</span>
+                                    <span className="font-semibold text-black/80 tex-xs capitalize">{data?.industryTypes?.join(', ')}</span>
                                 </div>
                             </li>
                         </ul>
