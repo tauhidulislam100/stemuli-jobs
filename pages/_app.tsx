@@ -14,9 +14,10 @@ export default function App({ Component, pageProps }: AppProps) {
     theme={{
       token: {
         colorPrimary: '#FF6D57',
+        colorPrimaryHover: '#664284',
       },
     }}>
-      <StyleProvider  hashPriority='high'>
+      <StyleProvider hashPriority='high'>
         <Layout>
           <Component {...pageProps} />
         </Layout>

@@ -21,19 +21,19 @@ export default function Home() {
       <div className="bg-[#f6f8fc]">
         <div className="h-[78vh] bg-hero object-cover flex justify-center items-center">
           <div className="text-center">
-            <p className="text-[#f0f0f0]/50 border-t border-b inline-block py-2">
-              Meet the staff who want to hire you
+            <p className="w-3/5 text-white/80 border-y border-white/70 inline-block py-2">
+              Go for it! You have nothing to lose, and a great opportunity to gain!
             </p>
-            <h1 className="text-5xl font-semibold leading-[50px] text-[#fff]">
-              Explore <span className="text-primary">thousands</span> of <br/> jobs around you
+            <h1 className="text-4xl md:text-5xl font-semibold leading-[50px] text-[#fff] mt-5">
+              Explore <span className="text-warning block md:inline">jobs around you</span>
             </h1>
-            <Button size='large' type='primary' className='w-60 h-16 uppercase text-lg font-semibold'>
+            {/* <Button size='large' type='primary' className='mt-5 w-60 h-16 uppercase text-lg font-semibold'>
               Find your job
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
-      <main className='container mx-auto my-10 min-h-[70vh]'>
+      <main className='container mx-auto my-8 min-h-[70vh]'>
         <JobsList />
       </main>
     </>

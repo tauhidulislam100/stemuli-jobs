@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Button, Row, Select, Space, Table, Tag } from 'antd';
+import { Button, ConfigProvider, Pagination, Row, Select, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
 import type { SelectProps } from 'antd';
@@ -59,7 +59,7 @@ const columns: ColumnsType<any> = [
     title: 'Company',
     dataIndex: 'companyName',
     key: 'companyName',
-    render: (text) => <a>{text}</a>,
+    render: (text) => <span className='font-semibold text-black/80'>{text}</span>,
   },
   {
     title: 'Opportunity Title',
@@ -83,9 +83,9 @@ const columns: ColumnsType<any> = [
     key: 'employmentType',
   },
   {
-    title: 'Descriptoin Preview',
+    title: 'Description Preview',
     key: 'id',
-    render: (data) => <Button onClick={() => modalHandler(data)} size="large" type='primary' className='w-28 font-semibold' >Preview</Button>
+    render: (data) => <Button onClick={() => modalHandler(data)} size="large" type='primary' className='w-full font-semibold' >Preview</Button>
   },
 ];
 
@@ -99,51 +99,75 @@ const columns: ColumnsType<any> = [
 
   return (
     <div className="">
-      <div className="-translate-y-24 bg-white p-10 shadow rounded-lg w-5/6 mx-auto flex gap-5">
-          <Select 
-                  bordered
-                  showSearch
-                  className='rounded-none'
-                  allowClear
-                  size='large'
-                  style={{ width: '100%' }}
-                  placeholder="Filter company"
-                  onChange={(v) => handleFilter('company',v as string)}
-                  options={companyOptions} />
-          <Select 
-                  bordered
-                  showSearch
-                  allowClear
-                  size='large'
-                  style={{ width: '100%' }}
-                  placeholder="Filter title"
-                  onChange={(v) => handleFilter('title',v as string)}
-                  options={titleOptions} />
-          <Select 
-                  bordered
-                  showSearch
-                  allowClear
-                  size='large'
-                  style={{ width: '100%' }}
-                  placeholder="Filter employment type"
-                  onChange={(v) => handleFilter('employmentType',v as string)}
-                  options={employTypeOptions} />
-          <Select 
-                  bordered
-                  showSearch
-                  allowClear
-                  size='large'
-                  style={{ width: '100%' }}
-                  placeholder="Location filter"
-                  onChange={(v) => handleFilter('location',v as string)}
-                  options={locationOptions} />
+      <div className="border-2 border-primary border-b-4 -translate-y-24 bg-white p-10 shadow rounded-lg w-5/6 mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+          <ConfigProvider theme={{
+            token: {
+              colorPrimaryHover: '#FF6D57',
+              borderRadius: 4,
+            }
+          }}>
+            <Select 
+                    bordered
+                    showSearch
+                    className='rounded-none'
+                    allowClear
+                    size='large'
+                    style={{ width: '100%' }}
+                    placeholder="Filter company"
+                    onChange={(v) => handleFilter('company',v as string)}
+                    options={companyOptions} />
+            <Select 
+                    bordered
+                    showSearch
+                    allowClear
+                    size='large'
+                    style={{ width: '100%' }}
+                    placeholder="Filter title"
+                    onChange={(v) => handleFilter('title',v as string)}
+                    options={titleOptions} />
+            <Select 
+                    bordered
+                    showSearch
+                    allowClear
+                    size='large'
+                    style={{ width: '100%' }}
+                    placeholder="Filter employment type"
+                    onChange={(v) => handleFilter('employmentType',v as string)}
+                    options={employTypeOptions} />
+            <Select 
+                    bordered
+                    showSearch
+                    allowClear
+                    size='large'
+                    style={{ width: '100%' }}
+                    placeholder="Location filter"
+                    onChange={(v) => handleFilter('location',v as string)}
+                    options={locationOptions} />
+          </ConfigProvider>
         </div>
-
-      <Table 
-        columns={columns} 
-        dataSource={jobsList}
-        className="shadow rounded-lg"
-         />
+        <ConfigProvider
+          theme={{
+            token: {
+              colorBgContainer: "#fff",
+              colorFillAlter: "#f7f7f7",
+            }
+          }}>
+          <Table 
+            columns={columns} 
+            dataSource={jobsList}
+            pagination={false}
+            onHeaderRow={(columns, index) => {
+              console.log(columns);
+              return {
+                onClick: () => {}, // click header row
+              };
+            }}
+            className="bg-white border rounded-lg overflow-hidden"
+            />
+        </ConfigProvider>
+        <div className="flex justify-end mt-3">
+          <Pagination defaultCurrent={1} total={1} />
+        </div>
       { modalData && <DetailsModal isOpen={showModal} onCancel={() => setShowModal(false)} data={modalData} />}
       {/* <div className="grid grid-cols-5">
         <div className="col-span-2 space-y-4">

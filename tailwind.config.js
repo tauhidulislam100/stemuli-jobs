@@ -15,7 +15,7 @@ module.exports = {
         accent: '#664284',
         success: '#52c41a',
         info: '#1677ff',
-        warning: '#faad14',
+        warning: '#ffba58',
         black: '#000'
       },
       backgroundImage: {
@@ -23,5 +23,9 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [{
+    corePlugins: {
+      preflight: false,
+    }
+  }],
 }

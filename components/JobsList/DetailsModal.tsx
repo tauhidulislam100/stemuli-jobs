@@ -89,15 +89,15 @@ const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: ()
             footer={null}
             closeIcon={<IoCloseCircleOutline className='text-2xl hover:text-primary' />}
             className="z-[10000]">
-            <div className="p-10 z-[10000]">
-                <div className="flex justify-between items-center">
-                    <div className="flex gap-5">
-                        <div className="relative border w-40 h-28">
+            <div className="p-5 md:p-10 z-[10000]">
+                <div className="md:flex justify-between items-center">
+                    <div className="md:flex gap-5">
+                        <div className="relative border border-primary/80 rounded w-full md:w-40 h-28">
                             <Image src={'/stemuli-black.png'} alt="Stemuli Logo" fill className='object-contain' />
                         </div>
                         <div className="text-black/80">
-                            <Title className='text-[32px] text-black/80 mb-1'>{ data?.title }</Title>
-                            <h3 className="text-2xl leading-6 font-medium mb-0">{ data?.companyName }</h3>
+                            <Title className='mt-5 text-3xl md:text-[32px] text-black/80 mb-1'>{ data?.title }</Title>
+                            <h3 className="text-lg md:text-xl xl:text-2xl leading-6 font-medium mb-0">{ data?.companyName }</h3>
                             <div className="mt-1">
                                 <div className="flex gap-1 items-end">
                                     <MdLocationPin className='text-lg text-primary/80' />
@@ -110,12 +110,12 @@ const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: ()
                             </div>
                         </div>
                     </div>
-                    <div className="">
-                        <Text className='block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> {dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</Text>
+                    <div className="mt-5 md:mt-0">
+                        <Text className='hidden md:block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> {dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</Text>
                         <Button size='large' type='primary' className='font-bold text-lg w-40 h-14'>Apply Now</Button>
                     </div>
                 </div>
-                <div className="mt-12 grid gap-20 grid-cols-3 text-black/80">
+                <div className="mt-12 md:grid gap-20 grid-cols-3 text-black/80">
                     <div className="col-span-2">
                         <Title level={5} >
                             Job Description
@@ -185,7 +185,7 @@ const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: ()
                         </ul>
                     </div>
                 </div>
-                <Button type='primary' size='large' onClick={onCancel} className="w-20 absolute right-5 text-bold"> OK</Button>
+                <Button type='primary' size='large' onClick={onCancel} className="w-20 absolute bottom-2 md:bottom-auto right-5 text-bold"> OK</Button>
             </div>
         </Modal>
     )

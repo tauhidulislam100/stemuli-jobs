@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Avatar, Layout as MainLayout } from 'antd';
+import { Avatar, ConfigProvider, Layout as MainLayout } from 'antd';
 import { CiFacebook, CiTwitter, CiLinkedin } from 'react-icons/ci';
 import { MdLocationPin, MdEmail, MdSmartphone } from 'react-icons/md';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaTiktok } from 'react-icons/fa';
@@ -15,31 +15,31 @@ const Layout = ({ children }:{ children:ReactNode }) => {
 
     return (
         <MainLayout>
-            <Header className='bg-white shadow-sm h-24 flex justify-between items-center border-b-[5px] border-primary'>
+            <Header className='px-0 md:px-[50px] bg-white shadow-sm h-24 flex justify-between items-center border-b-[5px] border-primary'>
                 <div className="">
                     <Image src={'/stemuli-black.png'} alt="Stemuli Logo" width={180} height={50} />
                 </div>
                 <div className="flex items-center gap-3">
-                    <Avatar className='w-14 h-14 flex justify-center items-center bg-primary/40'>
+                    <Avatar className='w-12 h-12 flex justify-center items-center bg-primary/40 border-2 border-primary'>
                         <span className="text-primary/80 text-lg font-semibold">N</span>
                     </Avatar>
                     <div className="">
-                        <h2 className="my-0 text-xs">Good { currentHour < 10 ? 'morning' : currentHour < 12 ? 'noon' : currentHour < 16 ? 'evening' : 'night' },</h2>
-                        <h1 className="my-0 text-lg">John Doe</h1>
+                        {/* <h2 className="my-0 text-xs">Good { currentHour < 10 ? 'morning' : currentHour < 12 ? 'noon' : currentHour < 16 ? 'evening' : 'night' },</h2> */}
+                        <h1 className="my-0 text-lg hidden sm:block">John Doe</h1>
                     </div>
                 </div>
             </Header>
             <Content> { children } </Content>
-            <Footer className='px-[10%] bg-gradient-to-br from-accent via-accent/80 to-accent/90'>
-                <div className=" py-5 flex justify-between">
-                    <div className="w-2/5">
-                        <div className="">
+            <Footer className='px-[10%] bg-gradient-to-br from-black/90 via-accent/90 to-primary/80'>
+                <div className="pt-20 md:flex justify-between">
+                    <div className="md:w-2/5">
+                        <div className="flex justify-center md:block">
                             <Image src={'/stemuli.png'} alt="Logo" width={180} height={50} />
                         </div>
-                        <p className="text-white/80 mt-5 w-4/5 leading-5">
+                        <p className="text-white/80 mt-5 md:w-4/5 leading-5 text-center md:text-left">
                             We leverage the power of online communities, AI, and game-based learning to provide a metaverse with immersive academic and career exploration experiences to take students from where they are to their dream job
                         </p>
-                        <div className="flex gap-x-5 mt-5">
+                        <div className="flex justify-center md:justify-start gap-x-5 mt-5">
                             <Link href={'/'} className="text-md w-8 h-8 border-2 hover:border-primary transition-all duration-200 flex justify-center items-center rounded-full bg-transparent hover:text-primary text-white/80">
                                 <FaFacebookF />
                             </Link>
@@ -54,19 +54,19 @@ const Layout = ({ children }:{ children:ReactNode }) => {
                             </Link>
                         </div>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 text-center md:text-left mt-10 md:mt-5">
                         <h3 className="text-white text-2xl font-bold">Find jobs</h3>
                         <ul className="space-y-2.5 text-white/80 mt-7">
-                            <li className="">Technology jobs</li>
-                            <li className="">Google Jobs</li>
-                            <li className="">Stemuli jobs</li>
-                            <li className="">Accounting jobs</li>
+                            <li className=""><Link href={'/'} className='text-white/80 hover:text-info'>Technology jobs</Link></li>
+                            <li className=""><Link href={'/'} className='text-white/80 hover:text-info'>Google Jobs</Link></li>
+                            <li className=""><Link href={'/'} className='text-white/80 hover:text-info'>Stemuli jobs</Link></li>
+                            <li className=""><Link href={'/'} className='text-white/80 hover:text-info'>Accounting jobs</Link></li>
                         </ul>
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-white text-2xl font-bold">Contact Us</h3>
+                        <h3 className="text-white text-2xl font-bold text-center md:text-left mt-10 md:mt-5">Contact Us</h3>
                         <ul className="space-y-2.5 text-white/80 mt-7">
-                            <li className="flex items-center gap-5">
+                            <li className="flex justify-center md:justify-start items-center gap-5">
                                 <div className="text-xl">
                                     <MdLocationPin />
                                 </div>
@@ -74,7 +74,7 @@ const Layout = ({ children }:{ children:ReactNode }) => {
                                     2001 Ross Ave #700-177,<br/> Dallas, TX 75201
                                 </p>
                             </li>
-                            <li className="flex items-center gap-5">
+                            <li className="flex justify-center md:justify-start items-center gap-5">
                                 <div className="text-xl">
                                     <MdSmartphone />
                                 </div>
@@ -82,7 +82,7 @@ const Layout = ({ children }:{ children:ReactNode }) => {
                                     (406) 555-0120
                                 </p>
                             </li>
-                            <li className="flex items-center gap-5">
+                            <li className="flex justify-center md:justify-start items-center gap-5">
                                 <div className="text-xl">
                                     <MdEmail />
                                 </div>
@@ -93,11 +93,11 @@ const Layout = ({ children }:{ children:ReactNode }) => {
                         </ul>
                     </div>
                 </div>
-                <div className="flex justify-between text-white/60 border-t border-white/20 pt-10 mt-5">
-                    <p className="">
+                <div className="md:flex justify-between text-white/60 border-t border-white/20 pt-6 mt-10">
+                    <p className="mb-0 text-xs sm:text-sm text-center">
                     © 2023 <span className="text-primary">Stemuli</span> | All Rights Reserved by <span className="text-primary">Stemuli</span>
                     </p>
-                    <div className="">
+                    <div className="text-xs sm:text-sm text-center mt-2 md:mt-0">
                         <span className="pr-5">Terms & Conditions</span>
                         <span className="">Privacy Policy</span>
                     </div>
