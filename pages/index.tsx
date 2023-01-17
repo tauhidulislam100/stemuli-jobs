@@ -25,7 +25,7 @@ export default function Home() {
               Go for it! You have nothing to lose, and a great opportunity to gain!
             </p>
             <h1 className="text-4xl md:text-5xl font-semibold leading-[50px] text-[#fff] mt-5">
-              Explore <span className="text-warning block md:inline">jobs around you</span>
+              Explore <span className="text-primary block md:inline">jobs around you</span>
             </h1>
             {/* <Button size='large' type='primary' className='mt-5 w-60 h-16 uppercase text-lg font-semibold'>
               Find your job
