@@ -20,7 +20,7 @@ const Layout = ({ children }:{ children:ReactNode }) => {
                     <Image src={'/stemuli-black.png'} alt="Stemuli Logo" width={180} height={50} />
                 </div>
                 <div className="flex items-center gap-3">
-                    <Avatar className='w-12 h-12 flex justify-center items-center bg-primary/40 border-2 border-primary'>
+                    <Avatar className='w-12 h-12 flex justify-center items-center bg-primary/40'>
                         <span className="text-primary/80 text-lg font-semibold">N</span>
                     </Avatar>
                     <div className="">

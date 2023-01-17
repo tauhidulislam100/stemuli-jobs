@@ -21,7 +21,7 @@ export default function Home() {
       <div className="bg-[#f6f8fc]">
         <div className="h-[78vh] bg-hero object-cover flex justify-center items-center">
           <div className="text-center">
-            <p className="w-3/5 text-white/80 border-y border-white/70 inline-block py-2">
+            <p className="w-3/5 md:w-auto text-white/80 border-y border-white/70 inline-block py-2">
               Go for it! You have nothing to lose, and a great opportunity to gain!
             </p>
             <h1 className="text-4xl md:text-5xl font-semibold leading-[50px] text-[#fff] mt-5">
