@@ -162,7 +162,7 @@ const columns: ColumnsType<any> = [
                 onClick: () => {}, // click header row
               };
             }}
-            className="bg-white border rounded-lg overflow-hidden"
+            className="bg-white border rounded-lg overflow-x-auto"
             />
         </ConfigProvider>
         <div className="flex justify-end mt-3">

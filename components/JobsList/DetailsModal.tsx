@@ -10,6 +10,7 @@ import { SlGraduation } from 'react-icons/sl';
 import Image from 'next/image';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 dayjs.extend(customParseFormat);
 const Modal = dynamic(() => import('antd/lib/modal/Modal'));
 
@@ -112,7 +113,9 @@ const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: ()
                     </div>
                     <div className="mt-5 md:mt-0">
                         <Text className='hidden md:block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> {dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</Text>
-                        <Button size='large' type='primary' className='font-bold text-lg w-40 h-14'>Apply Now</Button>
+                        <Link target={'_blank'} href={data?.applyUrl}>
+                            <Button size='large' type='primary' className='font-bold text-lg w-40 h-14'>Apply Now</Button>
+                        </Link>
                     </div>
                 </div>
                 <div className="mt-12 md:grid gap-20 grid-cols-3 text-black/80">
