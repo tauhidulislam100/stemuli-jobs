@@ -114,7 +114,7 @@ const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: ()
                         </div>
                     </div>
                     <div className="mt-5 md:mt-0">
-                        <Text className='hidden md:block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> {dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</Text>
+                        <Text className='hidden md:block text-right mb-3 text-xs'><span className="font-semibold">Application Deadline:</span> {dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('M/D/YY')}</Text>
                         <Link target={'_blank'} href={data?.applyUrl}>
                             <Button size='large' type='primary' className='w-full md:w-40 font-bold text-lg h-14'>Apply Now</Button>
                         </Link>
@@ -130,7 +130,7 @@ const DetailsModal = ({ isOpen, onCancel, data }:{ isOpen:boolean, onCancel?: ()
                                 <div className="text-primary/90"><BsCalendar2Date className='text-2xl' /></div>
                                 <div className="">
                                     <h3 className="my-0 font-semibold text-gray-500 tex-xs">Application Deadline</h3>
-                                    <span className="font-semibold text-black/80 tex-xs">{dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('D/M/YY')}</span>
+                                    <span className="font-semibold text-black/80 tex-xs">{dayjs(data?.lastDateToApply, 'DD-MM-YYYY').format('M/D/YY')}</span>
                                 </div>
                             </li>
                             <li className="flex gap-5 items-center py-3">
