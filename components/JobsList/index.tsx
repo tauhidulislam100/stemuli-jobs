@@ -50,8 +50,6 @@ const JobsList: React.FC = () => {
     [jobs]
   );
 
-  console.log('Jobs Data =>', jobs);
-
   const titleOptions = useMemo(
     () =>
       optionsData?.data?.titles?.map((title: any) => ({
@@ -225,7 +223,8 @@ const JobsList: React.FC = () => {
       </ConfigProvider>
       <div className="flex justify-end mt-3">
         <Pagination
-          pageSize={5}
+          current={searchQuery.page}
+          pageSize={searchQuery.limit}
           total={total}
           onChange={(v) => handleQuery('page', v)}
         />
