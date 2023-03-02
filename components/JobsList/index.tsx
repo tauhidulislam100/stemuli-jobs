@@ -25,6 +25,7 @@ const JobsList: React.FC = () => {
 
   const handleFilter = async (key: string, val: any) => {
     setFilterBy((prev) => ({ ...prev, [key]: val }));
+    handleQuery('page', 1);
   };
 
   const { data: jobs, isLoading } = useFetchJobsQuery({
@@ -39,13 +40,14 @@ const JobsList: React.FC = () => {
     () =>
       jobs?.searchResults?.map((job: any, idx: number) => ({
         ...job,
-        key: job.id,
-        title: job.title,
-        companyName: job.companyName.title,
-        address: job.jobLocation
-          .map((location: any) => `${location.city}, ${location.state}`)
-          .join(', '),
-        employmentType: job.employmentType.join(','),
+        key: job?.id,
+        title: job?.title ?? '-',
+        companyName: job?.companyName.title ?? '-',
+        address:
+          job?.jobLocation
+            ?.map((location: any) => `${location.city}, ${location.state}`)
+            .join(', ') ?? '-',
+        employmentType: job?.employmentType?.join(','),
       })) ?? [],
     [jobs]
   );
@@ -111,11 +113,11 @@ const JobsList: React.FC = () => {
       dataIndex: 'address',
       key: 'address',
     },
-    {
-      title: 'Minimum Experience',
-      dataIndex: 'minExperienceRequired',
-      key: 'minExperienceRequired',
-    },
+    // {
+    //   title: 'Minimum Experience',
+    //   dataIndex: 'minExperienceRequired',
+    //   key: 'minExperienceRequired',
+    // },
 
     {
       title: 'Employment Type',
@@ -123,7 +125,7 @@ const JobsList: React.FC = () => {
       key: 'employmentType',
     },
     {
-      title: 'Description Preview',
+      title: '',
       key: 'id',
       render: (data) => (
         <Button
@@ -132,7 +134,7 @@ const JobsList: React.FC = () => {
           type="primary"
           className="w-full font-semibold"
         >
-          Preview
+          Details
         </Button>
       ),
     },
@@ -198,6 +200,7 @@ const JobsList: React.FC = () => {
             onChange={(v) => handleFilter('location', v as string)}
             options={locationOptions}
           />
+          {/* <button className="w-full border-">Clear All</button> */}
         </ConfigProvider>
       </div>
       <ConfigProvider
@@ -224,9 +227,12 @@ const JobsList: React.FC = () => {
       <div className="flex justify-end mt-3">
         <Pagination
           current={searchQuery.page}
+          defaultPageSize={5}
+          pageSizeOptions={[5, 10, 25, 50]}
           pageSize={searchQuery.limit}
           total={total}
           onChange={(v) => handleQuery('page', v)}
+          onShowSizeChange={(_, v) => handleQuery('limit', v)}
         />
       </div>
       {modalData && (
