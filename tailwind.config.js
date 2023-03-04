@@ -2,9 +2,9 @@
 module.exports = {
   important: true,
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./layouts/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './layouts/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -17,16 +17,19 @@ module.exports = {
         success: '#52c41a',
         info: '#1677ff',
         // warning: '#ffba58',
-        black: '#000'
+        black: '#000',
       },
       backgroundImage: {
-        'hero': "url('/stemulihero.jpg')"
-      }
+        hero: "url('/stemulihero.jpg')",
+      },
     },
   },
-  plugins: [{
-    corePlugins: {
-      preflight: false,
-    }
-  }],
-}
+  plugins: [
+    {
+      corePlugins: {
+        preflight: false,
+      },
+    },
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
+};

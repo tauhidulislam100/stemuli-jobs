@@ -8,17 +8,20 @@ import {
   useFetchJobsQuery,
 } from '../../store/features/api';
 
+const defaultFilter = {
+  title: '',
+  company: '',
+  employmentType: '',
+  location: '',
+};
+
 const JobsList: React.FC = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [modalData, setModalData] = React.useState<{ [key: string]: any }>({});
   const [searchQuery, setSearchQuery] = React.useState({ limit: 5, page: 1 });
-  const [filterBy, setFilterBy] = React.useState({
-    title: '',
-    company: '',
-    employmentType: '',
-    location: '',
-  });
+  const [filterBy, setFilterBy] = React.useState(defaultFilter);
 
+  const clearFilter = () => setFilterBy(defaultFilter);
   const handleQuery = async (key: string, val: any) => {
     setSearchQuery((prev) => ({ ...prev, [key]: val }));
   };
@@ -113,11 +116,11 @@ const JobsList: React.FC = () => {
       dataIndex: 'address',
       key: 'address',
     },
-    // {
-    //   title: 'Minimum Experience',
-    //   dataIndex: 'minExperienceRequired',
-    //   key: 'minExperienceRequired',
-    // },
+    {
+      title: 'Industry',
+      dataIndex: 'industryTypes',
+      key: 'industryTypes',
+    },
 
     {
       title: 'Employment Type',
@@ -150,58 +153,97 @@ const JobsList: React.FC = () => {
 
   return (
     <div className="">
-      <div className="border-2 border-primary border-b-4 -translate-y-24 bg-white p-10 shadow rounded-lg w-5/6 mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-5">
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimaryHover: '#FF6D57',
-              borderRadius: 4,
-            },
-          }}
+      <div className="w-5/6 mx-auto border-2 border-primary border-b-4 -translate-y-24 bg-white p-10 shadow rounded-lg lg:flex gap-5">
+        <div className="flex-1 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimaryHover: '#FF6D57',
+                colorText: '#777',
+                borderRadius: 4,
+              },
+            }}
+          >
+            <Select
+              bordered
+              showSearch
+              className="rounded-none"
+              value={filterBy.company}
+              allowClear
+              size="large"
+              style={{ width: '100%' }}
+              placeholder="Filter company"
+              onChange={(v) => handleFilter('company', v as string)}
+              options={[
+                {
+                  label: 'Select Company',
+                  value: '',
+                },
+                ...companyOptions,
+              ]}
+            />
+            <Select
+              bordered
+              showSearch
+              value={filterBy.title}
+              allowClear
+              size="large"
+              style={{ width: '100%' }}
+              placeholder="Filter title"
+              onChange={(v) => handleFilter('title', v as string)}
+              options={[
+                {
+                  label: 'Select Title',
+                  value: '',
+                },
+                ...titleOptions,
+              ]}
+            />
+            <Select
+              bordered
+              showSearch
+              value={filterBy.employmentType}
+              allowClear
+              size="large"
+              style={{ width: '100%' }}
+              placeholder="Filter employment type"
+              onChange={(v) => handleFilter('employmentType', v as string)}
+              options={[
+                {
+                  label: 'Select Employment Type',
+                  value: '',
+                },
+                ...employTypeOptions,
+              ]}
+            />
+            <Select
+              bordered
+              showSearch
+              defaultValue={undefined}
+              value={filterBy.location}
+              allowClear
+              size="large"
+              style={{ width: '100%' }}
+              placeholder="Location filter"
+              onChange={(v) => handleFilter('location', v as string)}
+              options={[
+                {
+                  label: 'Select Location',
+                  value: '',
+                },
+                ...locationOptions,
+              ]}
+            />
+          </ConfigProvider>
+        </div>
+        <Button
+          onClick={clearFilter}
+          size="large"
+          type="primary"
+          className="mt-5 lg:mt-0 w-full lg:w-24 font-semibold"
         >
-          <Select
-            bordered
-            showSearch
-            className="rounded-none"
-            allowClear
-            size="large"
-            style={{ width: '100%' }}
-            placeholder="Filter company"
-            onChange={(v) => handleFilter('company', v as string)}
-            options={companyOptions}
-          />
-          <Select
-            bordered
-            showSearch
-            allowClear
-            size="large"
-            style={{ width: '100%' }}
-            placeholder="Filter title"
-            onChange={(v) => handleFilter('title', v as string)}
-            options={titleOptions}
-          />
-          <Select
-            bordered
-            showSearch
-            allowClear
-            size="large"
-            style={{ width: '100%' }}
-            placeholder="Filter employment type"
-            onChange={(v) => handleFilter('employmentType', v as string)}
-            options={employTypeOptions}
-          />
-          <Select
-            bordered
-            showSearch
-            allowClear
-            size="large"
-            style={{ width: '100%' }}
-            placeholder="Location filter"
-            onChange={(v) => handleFilter('location', v as string)}
-            options={locationOptions}
-          />
-          {/* <button className="w-full border-">Clear All</button> */}
-        </ConfigProvider>
+          Clear All
+        </Button>
       </div>
       <ConfigProvider
         theme={{

@@ -11,19 +11,21 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ConfigProvider
-    theme={{
-      token: {
-        // colorPrimary: '#FF6D57',
-        colorPrimary: '#ffba58',
-        colorPrimaryHover: '#664284',
-      },
-    }}>
-      <StyleProvider hashPriority='high'>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </StyleProvider>
-    </ConfigProvider>
+        theme={{
+          token: {
+            // colorPrimary: '#FF6D57',
+            colorPrimary: '#ffba58',
+            colorPrimaryHover: '#664284',
+            borderRadius: 4,
+          },
+        }}
+      >
+        <StyleProvider hashPriority="high">
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </StyleProvider>
+      </ConfigProvider>
     </Provider>
-  )
+  );
 }
